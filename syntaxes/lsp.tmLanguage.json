@@ -1,0 +1,73 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ptiLis.py",
+	"patterns": [
+		{
+			"include": "#comments"
+		},{
+			"include": "#lists"
+		}
+	],
+	"repository": {
+		"thing":{
+			"patterns": [
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#lists"
+				},
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.lsp",
+				"match": "\\b(if|cond|while|for|defun|load new|load file|load)\\b"
+			},{
+				"name": "keyword.other.lsp",
+				"match": "\\b(retlast|noret|retfirst|try|print)\\b"
+			},{
+				"name": "keyword.control.less.lsp",
+				"match": "\\b(define|set|incf|decf|inc|dec)\\b|(\\+){2}f{0,1}|(\\-){2}f{0,1}"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.lsp",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.lsp",
+					"match": "\\\\."
+				}
+			]
+		},
+		"lists": {
+			"name": "expression.group.lsp",
+			"begin": "\\(",
+			"end": "\\)",
+			"beginCaptures": {
+				"0": { "name": "punctuation.paren.open" }
+			},
+			"endCaptures": {
+				"0": { "name": "punctuation.paren.close" }
+			},
+			"patterns": [{"include": "#thing"}]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.lsp",
+					"match": ";.*"
+				}
+			]
+		}
+	},
+	"scopeName": "source.lsp"
+}
